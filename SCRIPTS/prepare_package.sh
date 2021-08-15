@@ -16,7 +16,7 @@ patch -p1 < ../PATCHES/001-fix-firewall-flock.patch
 
 ### 获取额外的 LuCI 应用、主题和依赖 ###
 # MOD Argon
-pushd feeds/luci/themes/luci-theme-argon
+pushd feeds/luci/themes/luci-theme-argonv3
 wget -qO- https://github.com/msylgj/luci-theme-argon/commit/0710026.patch | patch -p1
 popd
 # # MOD TurboACC To Add BBRv2
