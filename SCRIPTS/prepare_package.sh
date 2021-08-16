@@ -11,8 +11,6 @@ sed -i 's/Os/O3/g' include/target.mk
 ### 必要的 Patches ###
 # fix firewall flock
 patch -p1 < ../PATCHES/001-fix-firewall-flock.patch
-# UKSM
-wget -qO target/linux/generic/hack-4.19/695-uksm-4.19.patch https://github.com/dolohow/uksm/raw/master/v4.x/uksm-4.19.patch
 
 ### 获取额外的 LuCI 应用、主题和依赖 ###
 # MOD Argon
