@@ -66,11 +66,6 @@ jobs:
           /bin/bash prepare_package.sh
           cp -r ../SCRIPTS/target_r4s.sh ./target_r4s.sh
           /bin/bash target_r4s.sh
-      - name: Convert Translation
-        run: |
-          cd openwrt
-          wget -q https://github.com/QiuSimons/R2S-R4S-X86-OpenWrt/raw/master/SCRIPTS/03_convert_translation.sh
-          /bin/bash 03_convert_translation.sh
       - name: Make Config
         run: |
           cd openwrt
@@ -144,7 +139,7 @@ jobs:
           name: ${{ steps.assemble_artifact.outputs.release_tag }}-ROM
           allowUpdates: true
           tag: ${{ steps.assemble_artifact.outputs.release_tag }}
-          commit: master
+          commit: 18.06
           replacesArtifacts: true
           draft: false
           prerelease: true
