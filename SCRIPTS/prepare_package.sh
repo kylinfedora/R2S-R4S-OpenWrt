@@ -16,8 +16,8 @@ patch -p1 < ../PATCHES/001-fix-firewall-flock.patch
 
 ### 获取额外的 LuCI 应用、主题和依赖 ###
 # lucihttp
-rm -rf feeds/luci/contrib/package/lucihttp
-svn co https://github.com/immortalwrt/luci/branches/master/contrib/package/lucihttp feeds/luci/contrib/package/lucihttp
+rm -rf feeds/luci/contrib/package/lucihttp/Makefile
+wget -P feeds/luci/contrib/package/lucihttp/ https://github.com/immortalwrt/luci/raw/master/contrib/package/lucihttp/Makefile 
 # MOD Argon
 pushd feeds/luci/themes/luci-theme-argonv3
 wget -qO- https://github.com/msylgj/luci-theme-argon/commit/0710026.patch | patch -p1
