@@ -25,6 +25,7 @@ EOF
 uci commit system
 
 #Feeds 更换镜像源
+sed -i '/immortalwrt_luci/ { s/snapshots/releases\/18.06.9/g; }'  /etc/opkg/distfeeds.conf
 sed -i 'immortalwrt_core,s,downloads.openwrt.org,mirrors.tencent.com/lede,g' /etc/opkg/distfeeds.conf
 sed -i 's,downloads.openwrt.org,downloads.immortalwrt.cnsztl.eu.org,g' /etc/opkg/distfeeds.conf
 
@@ -62,6 +63,17 @@ uci commit system
 
 #清理内存缓存
 #sync; echo 3 > /proc/sys/vm/drop_caches
+
+#system
+ln -sf /sbin/ip /usr/bin/ip
+sed -i 's/cbi.submit\"] = true/cbi.submit\"] = \"1\"/g' /usr/lib/lua/luci/dispatcher.lua
+echo 'hsts=0' > /root/.wgetrc
+
+#clean
+rm -f /usr/lib/lua/luci/view/admin_status/index/mwan.htm
+rm -f /usr/lib/lua/luci/view/admin_status/index/upnp.htm
+rm -f /usr/lib/lua/luci/view/admin_status/index/ddns.htm
+rm -f /usr/lib/lua/luci/view/admin_status/index/minidlna.htm
 
 #清除 LuCI 残留缓存
 rm -rf /tmp/luci-modulecache
