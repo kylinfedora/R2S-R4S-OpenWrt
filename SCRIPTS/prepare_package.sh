@@ -44,6 +44,8 @@ sed -i 's/+luci-lib-ipkg //g' package/emortal/addition-trans-zh/Makefile
 # Lets Fuck
 mkdir package/base-files/files/usr/bin
 cp -f ../SCRIPTS/fuck package/base-files/files/usr/bin/fuck
+chmod +x ./package/base-files/files/usr/bin/fuck
+
 # 定制化配置
 sed -i "s/'%D %V %C'/'Built by OPoA($(date +%Y.%m.%d))@%D %V'/g" package/base-files/files/etc/openwrt_release
 sed -i "/DISTRIB_REVISION/d" package/base-files/files/etc/openwrt_release
