@@ -44,21 +44,21 @@ popd
 pushd feeds/luci/applications/luci-app-turboacc
 patch -p1 < ../../../../../PATCHES/003-mod-turboacc-switch-bbr-support-to-bbr2.patch
 popd
-# DNSPod
-svn co https://github.com/msylgj/OpenWrt_luci-app/trunk/luci-app-tencentddns feeds/luci/applications/luci-app-tencentddns
-ln -sf ../../../feeds/luci/applications/luci-app-tencentddns ./package/feeds/luci/luci-app-tencentddns
+# Aliddns
+git clone https://github.com/chenhw2/luci-app-aliddns.git feeds/luci/applications/luci-app-aliddns
+ln -sf ../../../feeds/luci/applications/luci-app-aliddns ./package/feeds/luci/luci-app-aliddns
 # Mosdns
 svn co https://github.com/QiuSimons/openwrt-mos/trunk/mosdns package/emortal/mosdns
 svn co https://github.com/QiuSimons/openwrt-mos/trunk/luci-app-mosdns package/emortal/luci-app-mosdns
 # OpenClash
-rm -rf feeds/luci/applications/luci-app-openclash
-svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash feeds/luci/applications/luci-app-openclash
+#rm -rf feeds/luci/applications/luci-app-openclash
+#svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash feeds/luci/applications/luci-app-openclash
 # SSR Plus: add DNSProxy support
 rm -rf ./feeds/luci/applications/luci-app-ssr-plus
 svn co https://github.com/msylgj/helloworld/branches/dnsproxy-edns/luci-app-ssr-plus feeds/luci/applications/luci-app-ssr-plus
 # ServerChan
-rm -rf feeds/luci/applications/luci-app-serverchan
-git clone -b master --depth 1 https://github.com/tty228/luci-app-serverchan.git feeds/luci/applications/luci-app-serverchan
+rm -rf feeds/luci/applications/luci-app-pushbot
+git clone -b master --depth 1 https://github.com/zzsj0928/luci-app-pushbot.git feeds/luci/applications/luci-app-pushbot
 # 网易云音乐
 rm -rf feeds/luci/applications/luci-app-unblockneteasemusic
 git clone -b master --depth 1 https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git feeds/luci/applications/luci-app-unblockneteasemusic
@@ -79,11 +79,20 @@ if [ ! -d "package/base-files/files/usr/bin" ]; then
 fi
 cp -f ../SCRIPTS/fuck package/base-files/files/usr/bin/fuck
 chmod +x ./package/base-files/files/usr/bin/fuck
+# Prepare PubKey
+wget -qNP package/base-files/files/etc https://mirrors.vsean.net/openwrt/snapshots/key-build.pub
 # 定制化配置
 sed -i "s/'%D %V %C'/'Built by OPoA($(date +%Y.%m.%d))@%D %V'/g" package/base-files/files/etc/openwrt_release
 sed -i "/DISTRIB_REVISION/d" package/base-files/files/etc/openwrt_release
 sed -i "/%D/a\ Built by OPoA($(date +%Y.%m.%d))" package/base-files/files/etc/banner
-sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generate
+
+echo "修改设备名称"
+device_name='rt'
+sed -i "s/OpenWrt/$device_name/g" ./package/base-files/files/bin/config_generate
+
+echo "设置LAN ip"
+lan_ip='192.168.199.1'
+sed -i "s/192.168.1.1/$lan_ip/g" package/base-files/files/bin/config_generate
 pushd feeds/luci/applications/luci-app-ssr-plus
 sed -i 's,ispip.clang.cn/all_cn,gh.404delivr.workers.dev/https://github.com/QiuSimons/Chnroute/raw/master/dist/chnroute/chnroute,' root/etc/init.d/shadowsocksr
 sed -i 's,YW5vbnltb3Vz/domain-list-community/release/gfwlist.txt,Loyalsoldier/v2ray-rules-dat/release/gfw.txt,' root/etc/init.d/shadowsocksr
