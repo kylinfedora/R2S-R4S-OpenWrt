@@ -8,7 +8,7 @@ rm -rf `ls | egrep -v '(etc|usr|www)'`
 cd /overlay/upper/etc
 rm -rf `ls | egrep -v '(config|ssrplus|smartdns|bench.log|passwd|shadow|sysupgrade.conf)'`
 cd /overlay/upper/etc/config
-rm -rf `ls | egrep -v '(arpbind|autoreboot|dhcp|firewall|frp|frps|fstab|network|oled|shadowsocksr|serverchan|smartdns|system|tencentddns|unblockneteasemusic|upnpd)'`
+rm -rf `ls | egrep -v '(arpbind|autoreboot|dhcp|firewall|frp|fstab|network|shadowsocksr|aliddns|smartdns|system|pushbot|unblockneteasemusic|upnpd)'`
 cd /overlay/upper/usr
 rm -rf `ls | egrep -v '(share)'`
 cd /overlay/upper/usr/share
