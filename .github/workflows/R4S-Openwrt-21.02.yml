@@ -6,6 +6,7 @@ on:
        - 21.02
      paths:
        - '.github/workflows/R4S-Openwrt-21.02.yml'
+       
 #  schedule:
 #    - cron: '00 03 * * 1'
 #  watch:
