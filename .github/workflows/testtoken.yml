@@ -1,0 +1,47 @@
+name: testtoken
+
+on:
+   push:
+     branches:
+       - 21.02
+     paths:
+       - '.github/workflows/testtoken.yml'
+#  schedule:
+#    - cron: '00 03 * * 1'
+#  watch:
+#    types: [started]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-20.04
+    if: github.event.repository.owner.id == github.event.sender.id
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@main
+      - name: Show system
+        run: |
+          echo -e "Total CPU cores\t: $(nproc)"
+          cat /proc/cpuinfo | grep 'model name'
+          free -h
+          uname -a
+          [ -f /proc/version ] && cat /proc/version
+          [ -f /etc/issue.net ] && cat /etc/issue.net
+          [ -f /etc/issue ] && cat /etc/issue
+          ulimit -a
+      - name: Create release
+        id: create_release
+        uses: ncipollo/release-action@v1.9.0
+        with:
+          name: ${{ steps.assemble_artifact.outputs.release_tag }}-ROM
+          allowUpdates: true
+          tag: ${{ steps.assemble_artifact.outputs.release_tag }}
+          commit: 21.02
+          replacesArtifacts: true
+          draft: false
+          prerelease: false
+          token: ${{ secrets.workflow_token }}
+          artifacts: ./artifact/*.gz,./artifact/*.seed,./artifact/*.sha256sum
