@@ -36,9 +36,9 @@ jobs:
         id: create_release
         uses: ncipollo/release-action@v1.9.0
         with:
-          name: ${{ steps.assemble_artifact.outputs.release_tag }}-ROM
+          name: testtoken-ROM
           allowUpdates: true
-          tag: ${{ steps.assemble_artifact.outputs.release_tag }}
+          tag: testtoken
           commit: 21.02
           replacesArtifacts: true
           draft: false
